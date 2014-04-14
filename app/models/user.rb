@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
 
   before_save {  |user| user.email = email.downcase }
   before_save :encrypt_password
+  before_create :create_remember_token
 
   validates :password, presence: true, length: { minimum: 6 }, confirmation: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -11,6 +12,13 @@ class User < ActiveRecord::Base
             uniqueness: { case_sensitive: false } )
 
 
+  def User.new_remember_token
+    SecureRandom.urlsafe_base64
+  end
+
+  def User.hash(token)
+    Digest::SHA1.hexdigest(token.to_s)
+  end
 
   def encrypt_password
     if password.present?
@@ -26,5 +34,10 @@ class User < ActiveRecord::Base
     else
       nil
     end
+  end
+
+ private
+  def create_remember_token
+    self.remember_token = User.hash(User.new_remember_token)
   end
 end
