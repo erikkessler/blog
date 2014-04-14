@@ -19,6 +19,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @khan_test = khan
   end
 
   def index
@@ -44,6 +45,11 @@ class PostsController < ApplicationController
     @post.destroy
 
     redirect_to posts_path
+  end
+
+  def khan
+    response = HTTParty.get("http://khanacademy.org/api/v1/exercises")
+    response[0]["translated_short_display_name"]
   end
 
   private
