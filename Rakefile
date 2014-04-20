@@ -4,3 +4,8 @@
 require File.expand_path('../config/application', __FILE__)
 
 Blog::Application.load_tasks
+
+task :make_admin => :environment do
+     newAdmin = User.create(email: "kessler.penguin55@gmail.com", password: "foobar", password_confirmation: "foobar")
+     newAdmin.toggle!(:admin)
+end

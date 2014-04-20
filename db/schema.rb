@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140414005311) do
+ActiveRecord::Schema.define(version: 20140420212316) do
 
   create_table "comments", force: true do |t|
     t.string   "commenter"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20140414005311) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "remember_token"
+    t.boolean  "admin",          default: false
   end
 
   add_index "users", ["remember_token"], name: "index_users_on_remember_token"
