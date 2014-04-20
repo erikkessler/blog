@@ -1,8 +1,5 @@
 class PostsController < ApplicationController
 
-  http_basic_authenticate_with name: "erik", password: "kessler",
-  except: [:index, :show]
-
   def new
     @post = Post.new
   end
@@ -19,7 +16,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    @khan_test = khan
+    @khan_test = "YOLO"
   end
 
   def index
